@@ -4,10 +4,16 @@
         <div class="main-content">
             <div class="wrapper">
                 <h1>Manage catagory</h1>
-
                 <br/><br/>
+                <?php
+                    if(isset($_SESSION['add'])){ // checking whether the session is set or not
+                        echo $_SESSION['add'];//display the session message
+                        unset($_SESSION['add']);//remove the session message
+                    }
+                ?>
+                <br><br>
                 <!-- button to add admin -->
-                <a href="#" class="btn-primary">Add Category</a>
+                <a href="<?php echo SITEURL;?>/admin/add-category.php" class="btn-primary">Add Category</a>
                 <br/><br/><br/>
                 <table class="tbl-full">
                     <tr>
