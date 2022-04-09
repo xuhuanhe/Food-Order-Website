@@ -9,9 +9,14 @@
                 echo $_SESSION['add'];//display the session message
                 unset($_SESSION['add']);//remove the session message
             }
+            if(isset($_SESSION['upload'])){ // checking whether the session is set or not
+                echo $_SESSION['upload'];//display the session message
+                unset($_SESSION['upload']);//remove the session message
+            }
         ?>
         <!-- Add category form starts -->
-        <form action="" method="POST">
+        <!-- enctype="multipart/form-data" for uploading images -->
+        <form action="" method="POST" enctype="multipart/form-data"> 
             <table class="tbl-30">
                 <tr>
                     <td>Title: </td>
@@ -19,7 +24,12 @@
                         <input type="text" name="title" placeholder="Category Title">
                     </td>
                 </tr>
-
+                <tr>
+                    <td>Select Image: </td>
+                    <td>
+                        <input type="file" name="image">
+                    </td>
+                </tr>
                 <tr>
                     <td>Feature: </td>
                     <td>
@@ -68,9 +78,39 @@
                     $active="No";
                 }
 
+                //check whether the image is selected or not and set the value for image name accordingly
+                // print_r($_FILES['image']); //using print_r because echo doesn't display the value of array and $_FILES is a array
+                // die();//break the code here
+                if(isset($_FILES['image']['name'])){//if out input type whose name is image has a name value
+                    //upload the image
+                    //to upload image we need image name. source path and destination path
+                    $image_name = $_FILES['image']['name'];
+                    $source_path = $_FILES['image']['tmp_name'];
+                    $destination_path = "../images/category/".$image_name;
+
+                    //Finally upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
+
+                    //check whether the image is uploaded or not 
+                    //and if the image is not uploaded then we will stop the process and redirect with error message
+                    if($upload == false){
+                        //set message
+                        $_SESSION['upload']="<div class='error'>Failed to upload image. </div>";
+                        //redirect to add category page
+                        header("location:".SITEURL.'/admin/add-category.php');
+                        //stop the process
+                        die();
+                    }
+
+                }else{
+                    //don't upload image and se tthe image_name value as blank
+                    $image_name="";
+                }
+
                 //2.create sql query to insert category into database
                 $sql = "INSERT INTO tbl_category SET
                     title='$title',
+                    image_name='$image_name',
                     featured='$featured',
                     active='$active'
                 ";
