@@ -110,7 +110,7 @@
                     }
 
                 }else{
-                    //don't upload image and se tthe image_name value as blank
+                    //don't upload image and set the image_name value as blank
                     $image_name="";
                 }
 
