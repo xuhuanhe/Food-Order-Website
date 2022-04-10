@@ -38,8 +38,35 @@
                     <td>
                         <!-- drop down -->
                         <select name="category" id="">
-                            <option value="1">Food</option>
-                            <option value="2">Snack</option>
+                            <?php
+                                //create PHP code to display categories from database
+                                //1.create sql to get all active categories from database
+                                $sql = "SELECT * FROM tbl_category WHERE active='yes'";
+                                //executing query
+                                $res = mysqli_query($conn, $sql);
+                                //count rows to check whether we have categories or not
+                                $count = mysqli_num_rows($res);
+                                //if count is greater than zero, we have categories else we don't have category
+                                if($count > 0){
+                                    //we have categories
+                                    while($row=mysqli_fetch_assoc($res)){
+                                        //get the details of categories
+                                        $id = $row['id'];
+                                        $title = $row['title'];
+                                        ?>
+                                            <option value="<?php echo $id; ?>"><?php echo $title?></option>
+                                        <?php
+                                    }
+                                }else{
+                                    //we don't have category
+                                    ?>
+                                    <option value="0">No Category Found</option>
+                                    <?php
+                                }
+                                //2.display on dropdown
+
+                            ?>
+                            
                         </select>
                     </td>
                 </tr>
