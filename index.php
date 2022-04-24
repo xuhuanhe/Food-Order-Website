@@ -70,109 +70,69 @@
     <section class="food-menu">
         <div class="container">
             <h2 class="text-center">Food Menu</h2>
+            
+            <?php
+            //getting foods from database that are active and featured
+            //sql query
+            $sql2="SELECT * FROM tbl_food WHERE active='Yes' AND featured='Yes' LIMIT 6";
 
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-pizza.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
+            //execute the query
+            $res2 = mysqli_query($conn, $sql2);
 
-                <div class="food-menu-desc">
-                    <h4>Food Title</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
+            //count rows
+            $count2 = mysqli_num_rows($res2);
 
-                    <a href="order.html" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
+            //check whether food avaiable or not
+            if($count2 > 0){
+                //Food Available
+                while($row=mysqli_fetch_assoc($res2)){
+                        //food available
+                    $id = $row['id'];
+                    $title = $row['title'];
+                    $price = $row['price'];
+                    $description = $row['description'];
+                    $image_name = $row['image_name'];
+                    ?>
 
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-burger.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
+                    <div class="food-menu-box">
+                        <div class="food-menu-img">
+                            <?php
+                                //check whether image available or not
+                                if($image_name==""){
+                                    //image not available
+                                    echo "<div class='error'>Image not available. </div>";
+                                }else{
+                                    //image available
+                                    ?>
+                                    <img src="<?php echo SITEURL?>/images/food/<?php echo $image_name?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
+                                    <?php
+                                }
+                            ?>
+                            
+                        </div>
 
-                <div class="food-menu-desc">
-                    <h4>Smoky Burger</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
+                        <div class="food-menu-desc">
+                            <h4><?php  echo $title; ?></h4>
+                            <p class="food-price"><?php echo $price; ?></p>
+                            <p class="food-detail">
+                                <?php echo $description; ?>
+                            </p>
+                            <br>
 
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
+                            <a href="order.html" class="btn btn-primary">Order Now</a>
+                        </div>
+                    </div>
 
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-burger.jpg" alt="Chicke Hawain Burger" class="img-responsive img-curve">
-                </div>
+                    <?php
+                }
+                
+            }else{
+                //food not available
+                echo "<div class='error'>Food not available.</div>";
+            }
 
-                <div class="food-menu-desc">
-                    <h4>Nice Burger</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-pizza.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Food Title</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-pizza.jpg" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Food Title</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
-            <div class="food-menu-box">
-                <div class="food-menu-img">
-                    <img src="images/menu-momo.jpg" alt="Chicke Hawain Momo" class="img-responsive img-curve">
-                </div>
-
-                <div class="food-menu-desc">
-                    <h4>Chicken Steam Momo</h4>
-                    <p class="food-price">$2.3</p>
-                    <p class="food-detail">
-                        Made with Italian Sauce, Chicken, and organice vegetables.
-                    </p>
-                    <br>
-
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-            </div>
-
+            ?>
+            
 
             <div class="clearfix"></div>
 
