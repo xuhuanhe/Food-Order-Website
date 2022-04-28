@@ -16,7 +16,7 @@
     <!-- CAtegories Section Starts Here -->
     <section class="categories">
         <div class="container">
-            
+
             <h2 class="text-center">Explore Foods</h2>
             <?php
                 //create sql query to display categories from database
@@ -34,10 +34,10 @@
                         $title = $row['title'];
                         $image_name = $row['image_name'];
                         ?>
-                        <a href="category-foods.html">
+                        <a href="<?php echo SITEURL; ?>/category-foods.php?category_id=<?php echo $id; ?>">
                             <div class="box-3 float-container">
                                 <?php 
-                            //check whether image is available or not
+                                    //check whether image is available or not
                                     if($image_name==""){
                                         //display message
                                         echo "<div class ='error'>image not available</div>";
