@@ -128,7 +128,7 @@
                     //check whether query executed successfully or not
                     if($res2 == true){
                         //query executed and order saved
-                        $_SESSION['order'] = "<div class='success text-center'>Food ordered successfully. </div>";
+                        $_SESSION['order'] = "<div class='Success text-center'>Food ordered successfully. </div>";
                         header('location:'.SITEURL.'/index.php');
                     }else{
                         //failed to save order
