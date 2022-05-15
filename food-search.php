@@ -7,7 +7,7 @@
 
                 //Get the Search Keyword
                 // $search = $_POST['search'];
-                $search = mysqli_real_escape_string($conn, $_POST['search']);
+                $search =  mysqli_real_escape_string($conn, $_POST['search']);
             
             ?>
 
